@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Shopping Cart</title>
+    <style>
+        /* Basic styles for the page */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .add-to-cart-btn {
+            background-color: #4c7aaf;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #456ca0;
+        }
+
+        .cart {
+            margin-top: 20px;
+        }
+
+        .cart h2 {
+            margin-bottom: 10px;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Shopping Cart Project</h1>
+    <div class="container">
+        <!-- Products section -->
+        <div class="products">
+            <div class="product">
+                <span class="product-name">Product 1</span>
+                <span class="product-price">$10</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Product 1', 10)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <span class="product-name">Product 2</span>
+                <span class="product-price">$15</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Product 2', 15)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <span class="product-name">Product 3</span>
+                <span class="product-price">$20</span>
+                <button class="add-to-cart-btn" onclick="addToCart('Product 3', 20)">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Cart section -->
+        <div class="cart">
+            <h2>Your Cart</h2>
+            <ul class="cart-items" id="cart-items"></ul>
+            <div class="total">Total: $<span id="total-price">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize cart and total
+        let cart = [];
+        let totalPrice = 0;
+
+        // Function to add item to cart
+        function addToCart(productName, productPrice) {
+            // Add item to cart array
+            cart.push({ name: productName, price: productPrice });
+
+            // Update cart UI
+            updateCart();
+        }
+
+        // Function to update cart UI
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = ''; // Clear previous items
+
+            cart.forEach(item => {
+                const cartItem = document.createElement('li');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `<span>${item.name}</span><span>$${item.price}</span>`;
+                cartItems.appendChild(cartItem);
+            });
+
+            // Update total price
+            updateTotalPrice();
+        }
+
+        // Function to update total price
+        function updateTotalPrice() {
+            totalPrice = cart.reduce((total, item) => total + item.price, 0);
+            document.getElementById('total-price').innerText = totalPrice;
+        }
+    </script>
+</body>
+</html>
